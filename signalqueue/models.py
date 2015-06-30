@@ -121,7 +121,8 @@ class EnqueuedSignal(models.Model):
     
     value = models.TextField(verbose_name="Serialized Signal Value",
         editable=False,
-        unique=True, db_index=True,
+        unique=False,
+        db_index=True,
         blank=True,
         null=True)
     

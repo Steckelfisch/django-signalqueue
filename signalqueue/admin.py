@@ -6,4 +6,8 @@ admin.site.index_template = os.path.join(SQ_ROOT, 'templates/admin/index_with_qu
 admin.site.app_index_template = os.path.join(SQ_ROOT, 'templates/admin/app_index.html')
 
 import signalqueue.models
-admin.site.register(signalqueue.models.EnqueuedSignal)
+
+class EnqueuedSignalAdmin(admin.ModelAdmin):
+    list_display  = ('queue_name', 'createdate', 'enqueued', 'value')
+    list_filter   = ('queue_name', 'createdate')
+admin.site.register(signalqueue.models.EnqueuedSignal,EnqueuedSignalAdmin)

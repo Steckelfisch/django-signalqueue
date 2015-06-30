@@ -41,7 +41,7 @@ else:
     else:
         runmode = runmodes['SQ_ASYNC_REQUEST'] # the default if neither settings.SQ_ASYNC or settings.SQ_RUNMODE are set
 
-
+print 'queues = backends.ConnectionHandler('+str(settings.SQ_QUEUES)+', '+str(runmode)+')'
 queues = backends.ConnectionHandler(settings.SQ_QUEUES, runmode)
 queue = SimpleLazyObject(lambda: queues.get('default'))
 

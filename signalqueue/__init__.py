@@ -94,15 +94,19 @@ def autodiscover():
             
             try:
                 app = import_module(appstring)
-            except AttributeError:
+            except AttributeError, ae:
+                logg.debug(str(ae))
                 continue
             
             try:
                 imp.find_module('signals', app.__path__)
-            except ImportError:
+            except ImportError, ie:
+                logg.debug(str(app.__name__) +" "+ str(ie))
                 continue
             
             modstring = "%s.signals" % appstring
+            logg.debug("*** Import signals in '%s' ..." % (
+                (modstring,)))
             mod = import_module(modstring)
             
             logg.debug("*** Searching for signals in '%s' ..." % (
@@ -141,6 +145,8 @@ def autodiscover():
     
     finally:
         autodiscover.lock.release()
+        logg.debug("*** signalqueue > WORKER autodiscover done ")
+
 
 autodiscover.lock = threading.Lock()
 

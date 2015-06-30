@@ -52,6 +52,7 @@ class Command(BaseCommand):
             sys.exit(status)
 
     def run_worker(self, args, options):
+        self.echo('run_worker')
         """ Runs the Tornado-based queue worker. """
         import tornado.options
         from tornado.httpserver import HTTPServer
@@ -97,7 +98,7 @@ class Command(BaseCommand):
             raise CommandError('Usage: %s %s' % (__file__, self.args))
         
         self.exit_when_halting = options.get('exit', True)
-        
+        self.echo('exit_when_halting: '+str(self.exit_when_halting))
         if not addrport:
             addr = ''
             port = str(settings.SQ_WORKER_PORT) or '8088'
